@@ -8,8 +8,8 @@ const uppdateContact = async (req, res) => {
     new: true,
   });
   if (!result) {
-    throw HttpError(404, "Not found");
+    next(HttpError(404, "Not found"));
   }
-  res.json(result);
+  res.status(201).json(result);
 };
 module.exports = uppdateContact;
