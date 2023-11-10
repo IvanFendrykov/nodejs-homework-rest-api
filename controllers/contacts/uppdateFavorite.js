@@ -8,7 +8,7 @@ const uppdateFavorite = async (req, res) => {
     new: true,
   });
   if (!result) {
-    throw HttpError(404, "Not found");
+    next(HttpError(404, "Not found"));
   }
   res.json(result);
 };
