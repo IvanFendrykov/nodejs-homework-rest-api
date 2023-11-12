@@ -11,12 +11,15 @@ const userRegisterSchema = Joi.object({
   password: Joi.string().min(6).required(),
   subscription: Joi.string(),
 });
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
 
 const userLoginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
 
-
+module.exports = emailSchema;
 module.exports = userRegisterSchema;
 module.exports = userLoginSchema;
