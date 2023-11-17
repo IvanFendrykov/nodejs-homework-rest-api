@@ -2,8 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 const { HttpError, checkHashPassword } = require("../../helpers/index");
 
-
-const  {SECRET_KEY}  = process.env;
+const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -11,6 +10,9 @@ const login = async (req, res) => {
   const user = await User.findOne({ email });
   if (!user) {
     throw HttpError(401, "Email or password invalid ");
+  }
+  if (!user.verify) {
+    throw HttpError(401, "Email not verify");
   }
 
   const hashPassword = await checkHashPassword(password, user.password);

@@ -1,12 +1,18 @@
 const express = require("express");
-const { validateBody, authenticate, upload } = require("../../middlewares/index");
-const schemaAuth = require("../../schemas");
+const {
+  validateBody,
+  authenticate,
+  upload,
+} = require("../../middlewares/index");
+const schemaAuth = require("../../schemas/index");
 const {
   register,
   login,
   getCurrent,
   logout,
-  uppAvatar
+  uppAvatar,
+  verifyEmail,
+  sendVerifyEmail,
 } = require("../../controllers/auth/index");
 
 const authRouter = express.Router();
@@ -18,6 +24,12 @@ authRouter.post(
 );
 
 authRouter.post("/login", validateBody(schemaAuth.userLoginSchema), login);
+authRouter.get("/verify/:verificationCode", verifyEmail);
+authRouter.post(
+  "/verify",
+  validateBody(schemaAuth.emailSchema),
+  sendVerifyEmail
+);
 
 authRouter.get("/current", authenticate, getCurrent);
 

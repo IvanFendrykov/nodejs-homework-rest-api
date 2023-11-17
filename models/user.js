@@ -3,10 +3,6 @@ const { handleMongooseError } = require("../helpers/index");
 
 const userSchema = new Schema(
   {
-    // name: {
-    //   type: String,
-    //   required: true
-    // },
     password: {
       type: String,
       required: [true, "Set password for user"],
@@ -24,7 +20,11 @@ const userSchema = new Schema(
     token: { type: String, default: "" },
     avatarURL: {
       type: String,
-    
+    },
+    verify: { type: Boolean, default: false },
+    verificationCode: {
+      type: String,
+      default: "",
     },
   },
   { versionKey: false, timestamps: true }
